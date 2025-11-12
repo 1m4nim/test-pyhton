@@ -58,15 +58,39 @@
 #         print(i, end=" ")
 
 
+# input_price=input("insert: ")
+# product_price=input("product: ")
+# change=int(input_price)-int(product_price)
+
+# coin=[5000,1000,500,100,50,10,5,1]
+
+# for i in coin:
+#     r=change//i
+#     change=change%i
+#     print(str(i)+":"+str(r))
+
+    
+import sys
+
 input_price=input("insert: ")
+if not input_price.isdecimal():
+    print("整数を入力してください")
+    sys.exit()
+
 product_price=input("product: ")
+if not product_price.isdecimal():
+    print("整数を入力してください")
+    sys.exit()
+
 change=int(input_price)-int(product_price)
 
-coin=[5000,1000,500,100,50,10,5,1]
+if change<0:
+    print("お金足りないよ")
+    sys.exit()
+
+coin = [5000,1000,500,100,50,10,5,1]
 
 for i in coin:
     r=change//i
     change=change%i
-    print(str(i)+":"+str(r))
-
-    
+    print(str)(i)+":"+str(r)
