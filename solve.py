@@ -32,15 +32,55 @@
 # print(fibonacci(6))
 
 
-def uruu(year):
-    if year % 4 == 0:
-        if year % 100 == 0 and year % 400 != 0:
-            return False
-        else:
-            return True
-    else:
-        return False
+# def uruu(year):
+#     if year % 4 == 0:
+#         if year % 100 == 0 and year % 400 != 0:
+#             return False
+#         else:
+#             return True
+#     else:
+#         return False
 
 
-for i in range(1950, 2051):
-    print(str(i) + " " + str(uruu(i)))
+# for i in range(1950, 2051):
+#     print(str(i) + " " + str(uruu(i)))
+
+
+import sys
+
+try:
+    H, W = map(int, sys.stdin.readline().split())
+except:
+    exit()
+
+S = []
+for _ in range(H):
+    S.append(sys.stdin.readline().strip())
+
+directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+is_valid = True
+
+for i in range(H):
+    for j in range(W):
+
+        if S[i][j] == "#":
+            black_neighor_count = 0
+
+            for dr, dc in directions:
+                ni, nj = i + dr, j + dc
+
+                if 0 <= ni < H and 0 <= nj < W:
+                    if S[ni][nj] == "#":
+                        black_neighor_count += 1
+
+            if black_neighor_count != 2 and black_neighor_count != 4:
+                is_valid = False
+                break
+    if not is_valid:
+        break
+
+if is_valid:
+    print("YES")
+else:
+    print("NO")
