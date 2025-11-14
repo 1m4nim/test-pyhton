@@ -46,41 +46,82 @@
 #     print(str(i) + " " + str(uruu(i)))
 
 
+# import sys
+
+# try:
+#     H, W = map(int, sys.stdin.readline().split())
+# except:
+#     exit()
+
+# S = []
+# for _ in range(H):
+#     S.append(sys.stdin.readline().strip())
+
+# directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+# is_valid = True
+
+# for i in range(H):
+#     for j in range(W):
+
+#         if S[i][j] == "#":
+#             black_neighor_count = 0
+
+#             for dr, dc in directions:
+#                 ni, nj = i + dr, j + dc
+
+#                 if 0 <= ni < H and 0 <= nj < W:
+#                     if S[ni][nj] == "#":
+#                         black_neighor_count += 1
+
+#             if black_neighor_count != 2 and black_neighor_count != 4:
+#                 is_valid = False
+#                 break
+#     if not is_valid:
+#         break
+
+# if is_valid:
+#     print("YES")
+# else:
+#     print("NO")
+
+
 import sys
 
 try:
-    H, W = map(int, sys.stdin.readline().split())
+    N = int(sys.stdin.readline())
 except:
     exit()
 
-S = []
-for _ in range(H):
-    S.append(sys.stdin.readline().strip())
+try:
+    doors = list(map(int, sys.stdin.readline().split()))
+except:
+    exit()
 
-directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
-is_valid = True
-
-for i in range(H):
-    for j in range(W):
-
-        if S[i][j] == "#":
-            black_neighor_count = 0
-
-            for dr, dc in directions:
-                ni, nj = i + dr, j + dc
-
-                if 0 <= ni < H and 0 <= nj < W:
-                    if S[ni][nj] == "#":
-                        black_neighor_count += 1
-
-            if black_neighor_count != 2 and black_neighor_count != 4:
-                is_valid = False
-                break
-    if not is_valid:
+for i in range(N):
+    if doors[i] == 1:
+        first_closed = i
         break
 
-if is_valid:
-    print("YES")
+if first_closed == -1:
+    R = N
 else:
-    print("NO")
+    R = first_closed
+
+right_closed = -1
+
+for i in range(N - 1, -1, -1):
+    if doors[i] == 1:
+        right_closed = i
+        break
+
+if right_closed == -1:
+    L = 0
+else:
+    L = right_closed + 1
+
+if R + 1 >= L:
+    print(0)
+else:
+    result = L - R - 1
+    print(result)
