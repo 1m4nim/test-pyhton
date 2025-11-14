@@ -86,42 +86,83 @@
 #     print("NO")
 
 
+# import sys
+
+# try:
+#     N = int(sys.stdin.readline())
+# except:
+#     exit()
+
+# try:
+#     doors = list(map(int, sys.stdin.readline().split()))
+# except:
+#     exit()
+
+# for i in range(N):
+#     if doors[i] == 1:
+#         first_closed = i
+#         break
+
+# if first_closed == -1:
+#     R = N
+# else:
+#     R = first_closed
+
+# right_closed = -1
+
+# for i in range(N - 1, -1, -1):
+#     if doors[i] == 1:
+#         right_closed = i
+#         break
+
+# if right_closed == -1:
+#     L = 0
+# else:
+#     L = right_closed + 1
+
+# if R + 1 >= L:
+#     print(0)
+# else:
+#     result = L - R - 1
+#     print(result)
+
 import sys
 
-try:
-    N = int(sys.stdin.readline())
-except:
-    exit()
 
-try:
-    doors = list(map(int, sys.stdin.readline().split()))
-except:
-    exit()
+def solve():
+    try:
+        data = sys.stdin.readline().split()
+        if not data:
+            return
+        N, M, K = map(int, data)
+    except:
+        return
 
-for i in range(N):
-    if doors[i] == 1:
-        first_closed = i
-        break
+    perfect_counts = [0] * (N + 1)
 
-if first_closed == -1:
-    R = N
-else:
-    R = first_closed
+    solved_all = set()
 
-right_closed = -1
+    result_order = []
 
-for i in range(N - 1, -1, -1):
-    if doors[i] == 1:
-        right_closed = i
-        break
+    for _ in range(K):
+        try:
+            line = sys.stdin.readline().split()
+            if not line:
+                break
+            A, B = map(int, line)
+        except:
+            break
 
-if right_closed == -1:
-    L = 0
-else:
-    L = right_closed + 1
+        person_id = A
+        if person_id not in solved_all:
+            perfect_counts[person_id] += 1
 
-if R + 1 >= L:
-    print(0)
-else:
-    result = L - R - 1
-    print(result)
+            if perfect_counts[person_id] == M:
+                result_order.append(person_id)
+                solved_all.add(person_id)
+
+    print(*(str(p) for p in result_order))
+
+
+if __name__ == "__main__":
+    solve()
