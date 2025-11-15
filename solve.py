@@ -168,59 +168,80 @@
 #     solve()
 
 
+# import sys
+
+
+# def solve():
+
+#     try:
+#         N_line = sys.stdin.readline()
+#         if not N_line:
+#             return
+#         N = int(N_line)
+#     except:
+#         return
+
+#     try:
+#         A = list(map(int, sys.stdin.readline().split()))
+#     except:
+#         return
+
+#     P = [0] * N
+#     used_elements = set()
+
+#     for i in range(N):
+#         val = A[i]
+
+#         if val != -1:
+
+#             if val in used_elements:
+#                 print("No")
+#                 return
+
+#             P[i] = val
+#             used_elements.add(val)
+
+#     all_elements = set(range(1, N + 1))
+
+#     unused_elements = list(all_elements - used_elements)
+
+#     unused_elements.sort()
+#     unused_index = 0
+
+#     for i in range(N):
+#         if P[i] == 0:
+
+#             if unused_index < len(unused_elements):
+#                 P[i] = unused_elements[unused_index]
+#                 unused_index += 1
+#             else:
+#                 print("No")
+#                 return
+
+#     print("Yes")
+#     print(*(str(p) for p in P))
+
+
+# if __name__ == "__main__":
+#     solve()
+
 import sys
 
 
 def solve():
-
     try:
-        N_line = sys.stdin.readline()
-        if not N_line:
+        S = sys.stdin.readline().strip()
+    except:
+        return
+
+    counts={}
+    for char in S:
+        counts[char]=counts.get(char,0)+1
+        
+    for char, count in counts.items():
+        if count==1:
+            print(char)
             return
-        N = int(N_line)
-    except:
-        return
-
-    try:
-        A = list(map(int, sys.stdin.readline().split()))
-    except:
-        return
-
-    P = [0] * N
-    used_elements = set()
-
-    for i in range(N):
-        val = A[i]
-
-        if val != -1:
-
-            if val in used_elements:
-                print("No")
-                return
-
-            P[i] = val
-            used_elements.add(val)
-
-    all_elements = set(range(1, N + 1))
-
-    unused_elements = list(all_elements - used_elements)
-
-    unused_elements.sort()
-    unused_index = 0
-
-    for i in range(N):
-        if P[i] == 0:
-
-            if unused_index < len(unused_elements):
-                P[i] = unused_elements[unused_index]
-                unused_index += 1
-            else:
-                print("No")
-                return
-
-    print("Yes")
-    print(*(str(p) for p in P))
-
-
-if __name__ == "__main__":
+        
+if __name__=="__main__":
     solve()
