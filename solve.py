@@ -126,42 +126,100 @@
 #     result = L - R - 1
 #     print(result)
 
+# import sys
+
+
+# def solve():
+#     try:
+#         data = sys.stdin.readline().split()
+#         if not data:
+#             return
+#         N, M, K = map(int, data)
+#     except:
+#         return
+
+#     perfect_counts = [0] * (N + 1)
+
+#     solved_all = set()
+
+#     result_order = []
+
+#     for _ in range(K):
+#         try:
+#             line = sys.stdin.readline().split()
+#             if not line:
+#                 break
+#             A, B = map(int, line)
+#         except:
+#             break
+
+#         person_id = A
+#         if person_id not in solved_all:
+#             perfect_counts[person_id] += 1
+
+#             if perfect_counts[person_id] == M:
+#                 result_order.append(person_id)
+#                 solved_all.add(person_id)
+
+#     print(*(str(p) for p in result_order))
+
+
+# if __name__ == "__main__":
+#     solve()
+
+
 import sys
 
 
 def solve():
+
     try:
-        data = sys.stdin.readline().split()
-        if not data:
+        N_line = sys.stdin.readline()
+        if not N_line:
             return
-        N, M, K = map(int, data)
+        N = int(N_line)
     except:
         return
 
-    perfect_counts = [0] * (N + 1)
+    try:
+        A = list(map(int, sys.stdin.readline().split()))
+    except:
+        return
 
-    solved_all = set()
+    P = [0] * N
+    used_elements = set()
 
-    result_order = []
+    for i in range(N):
+        val = A[i]
 
-    for _ in range(K):
-        try:
-            line = sys.stdin.readline().split()
-            if not line:
-                break
-            A, B = map(int, line)
-        except:
-            break
+        if val != -1:
 
-        person_id = A
-        if person_id not in solved_all:
-            perfect_counts[person_id] += 1
+            if val in used_elements:
+                print("No")
+                return
 
-            if perfect_counts[person_id] == M:
-                result_order.append(person_id)
-                solved_all.add(person_id)
+            P[i] = val
+            used_elements.add(val)
 
-    print(*(str(p) for p in result_order))
+    all_elements = set(range(1, N + 1))
+
+    unused_elements = list(all_elements - used_elements)
+
+    unused_elements.sort()
+    unused_index = 0
+
+    for i in range(N):
+        if P[i] == 0:
+
+            if unused_index < len(unused_elements):
+                P[i] = unused_elements[unused_index]
+                unused_index += 1
+            else:
+                print("No")
+                return
+
+    print("Yes")
+    print(*(str(p) for p in P))
 
 
 if __name__ == "__main__":
