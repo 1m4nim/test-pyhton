@@ -225,23 +225,53 @@
 # if __name__ == "__main__":
 #     solve()
 
+# import sys
+
+
+# def solve():
+#     try:
+#         S = sys.stdin.readline().strip()
+#     except:
+#         return
+
+#     counts = {}
+#     for char in S:
+#         counts[char] = counts.get(char, 0) + 1
+
+#     for char, count in counts.items():
+#         if count == 1:
+#             print(char)
+#             return
+
+
+# if __name__ == "__main__":
+#     solve()
+
 import sys
 
+def f(x):
+    return sum(int(digit) for digit in str(x))
 
 def solve():
     try:
-        S = sys.stdin.readline().strip()
+        N = int(sys.stdin.readline())
     except:
         return
 
-    counts={}
-    for char in S:
-        counts[char]=counts.get(char,0)+1
+    A = [0] * (N + 1)
+    A[0] = 1
+
+    if N == 1:
+        print(f(A[0]))
+        return
+
+    A[1] = f(A[0])
+    
+    for i in range(2, N + 1):
+        f_val_prev = f(A[i-1])
+        A[i] = A[i-1] + f_val_prev
         
-    for char, count in counts.items():
-        if count==1:
-            print(char)
-            return
-        
-if __name__=="__main__":
+    print(A[N])
+
+if __name__ == "__main__":
     solve()
