@@ -356,39 +356,111 @@
 #     solve()
 
 
+# import sys
 
+
+# def solve():
+#     try:
+#         N = int(sys.stdin.readline())
+#     except:
+#         return
+
+#     logged_in = False
+#     error_count = 0
+
+#     for _ in range(N):
+#         try:
+#             S = sys.stdin.readline().strip()
+#         except:
+#             break
+
+#         if not S:
+#             continue
+
+#         if S == "login":
+#             logged_in = True
+#         elif S == "logout":
+#             logged_in = False
+#         elif S == "public":
+#             pass
+#         elif S == "private":
+#             if logged_in == False:
+#                 error_count += 1
+
+#     print(error_count)
+
+
+# if __name__ == "__main__":
+#     solve()
+
+# 421
 import sys
 
 
 def solve():
     try:
-        N = int(sys.stdin.readline())
+        N_str = sys.stdin.readline().strip()
+        M_str = sys.stdin.readline().strip()
+        
+        if not N_str or not M_str:
+            return
+
+        N = int(N_str)
+        M = int(M_str)
     except:
         return
 
-    logged_in = False
-    error_count = 0
-
+    S = []
     for _ in range(N):
         try:
-            S = sys.stdin.readline().strip()
+            S.append(sys.stdin.readline().strip())
         except:
             break
 
-        if not S:
-            continue
+    scores = [0] * (N + 1)
 
-        if S == "login":
-            logged_in = True
-        elif S == "logout":
-            logged_in = False
-        elif S == "public":
-            pass
-        elif S == "private":
-            if logged_in == False:
-                error_count += 1
+    for j in range(M):
+        count_0 = 0
+        count_1 = 0
 
-    print(error_count)
+        vote_0 = []
+        vote_1 = []
+
+        for i in range(1, N + 1):
+            if i - 1 >= len(S) or j >= len(S[i - 1]):
+                continue
+                
+            vote = S[i - 1][j]
+
+            if vote == "0":
+                count_0 += 1
+                vote_0.append(i)
+            else:
+                count_1 += 1
+                vote_1.append(i)
+
+        if count_0 == 0 or count_1 == 0:
+            for i in range(1, N + 1):
+                scores[i] += 1
+
+        elif count_0 < count_1:
+            for person_id in vote_0:
+                scores[person_id] += 1
+
+        else:
+            for person_id in vote_1:
+                scores[person_id] += 1
+    
+    max_score = 0
+    if N > 0:
+        max_score = max(scores[1:])
+
+    winners = []
+    for i in range(1, N + 1):
+        if scores[i] == max_score:
+            winners.append(str(i))
+            
+    print(" ".join(winners))
 
 
 if __name__ == "__main__":
