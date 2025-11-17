@@ -247,31 +247,111 @@
 # if __name__ == "__main__":
 #     solve()
 
-import sys
+# import sys
 
-def f(x):
-    return sum(int(digit) for digit in str(x))
+# def f(x):
+#     return sum(int(digit) for digit in str(x))
+
+# def solve():
+#     try:
+#         N = int(sys.stdin.readline())
+#     except:
+#         return
+
+#     A = [0] * (N + 1)
+#     A[0] = 1
+
+#     if N == 1:
+#         print(f(A[0]))
+#         return
+
+#     A[1] = f(A[0])
+
+#     for i in range(2, N + 1):
+#         f_val_prev = f(A[i-1])
+#         A[i] = A[i-1] + f_val_prev
+
+#     print(A[N])
+
+# if __name__ == "__main__":
+#     solve()
+
+# import sys
+
+
+# def solve():
+#     try:
+#         N = int(sys.stdin.readline())
+#         M = int(sys.stdin.readline())
+#         # print("N:{N},M:{M}")
+#     except:
+#         return
+
+#     if N == 1:
+#         X = M + 1
+
+#     LIMIT = 10**9
+
+
+#     for i in range(M + 1):
+#         term = N**1
+
+#         if term > LIMIT:
+#             X = LIMIT + 1
+#             break
+
+#         if X > LIMIT - term:
+#             X = LIMIT + 1
+#             break
+
+#         X += term
+
+#     if X <= LIMIT:
+#         print(X)
+#     else:
+#         print("inf")
+
+
+# if __name__ == "__main__":
+#     solve()
+
+
+# import sys
+
 
 def solve():
     try:
         N = int(sys.stdin.readline())
+        M = int(sys.stdin.readline())
     except:
         return
 
-    A = [0] * (N + 1)
-    A[0] = 1
+    LIMIT = 10**9
 
     if N == 1:
-        print(f(A[0]))
-        return
+        X = M + 1
+    else:
+        X = 0
 
-    A[1] = f(A[0])
-    
-    for i in range(2, N + 1):
-        f_val_prev = f(A[i-1])
-        A[i] = A[i-1] + f_val_prev
-        
-    print(A[N])
+        for i in range(M + 1):
+            term = N**i
+
+            if term > LIMIT:
+                X = LIMIT + 1
+                break
+
+            if X > LIMIT - term:
+                X = LIMIT + 1
+                break
+
+            X += term
+
+    if X <= LIMIT:
+        print(X)
+    else:
+        print("inf")
+
 
 if __name__ == "__main__":
     solve()
+
