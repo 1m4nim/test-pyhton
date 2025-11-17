@@ -319,39 +319,77 @@
 # import sys
 
 
+# def solve():
+#     try:
+#         N = int(sys.stdin.readline())
+#         M = int(sys.stdin.readline())
+#     except:
+#         return
+
+#     LIMIT = 10**9
+
+#     if N == 1:
+#         X = M + 1
+#     else:
+#         X = 0
+
+#         for i in range(M + 1):
+#             term = N**i
+
+#             if term > LIMIT:
+#                 X = LIMIT + 1
+#                 break
+
+#             if X > LIMIT - term:
+#                 X = LIMIT + 1
+#                 break
+
+#             X += term
+
+#     if X <= LIMIT:
+#         print(X)
+#     else:
+#         print("inf")
+
+
+# if __name__ == "__main__":
+#     solve()
+
+
+
+import sys
+
+
 def solve():
     try:
         N = int(sys.stdin.readline())
-        M = int(sys.stdin.readline())
     except:
         return
 
-    LIMIT = 10**9
+    logged_in = False
+    error_count = 0
 
-    if N == 1:
-        X = M + 1
-    else:
-        X = 0
+    for _ in range(N):
+        try:
+            S = sys.stdin.readline().strip()
+        except:
+            break
 
-        for i in range(M + 1):
-            term = N**i
+        if not S:
+            continue
 
-            if term > LIMIT:
-                X = LIMIT + 1
-                break
+        if S == "login":
+            logged_in = True
+        elif S == "logout":
+            logged_in = False
+        elif S == "public":
+            pass
+        elif S == "private":
+            if logged_in == False:
+                error_count += 1
 
-            if X > LIMIT - term:
-                X = LIMIT + 1
-                break
-
-            X += term
-
-    if X <= LIMIT:
-        print(X)
-    else:
-        print("inf")
+    print(error_count)
 
 
 if __name__ == "__main__":
     solve()
-
