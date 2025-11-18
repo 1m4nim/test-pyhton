@@ -393,74 +393,113 @@
 # if __name__ == "__main__":
 #     solve()
 
-# 421
+# # 421
+# import sys
+
+
+# def solve():
+#     try:
+#         N_str = sys.stdin.readline().strip()
+#         M_str = sys.stdin.readline().strip()
+
+#         if not N_str or not M_str:
+#             return
+
+#         N = int(N_str)
+#         M = int(M_str)
+#     except:
+#         return
+
+#     S = []
+#     for _ in range(N):
+#         try:
+#             S.append(sys.stdin.readline().strip())
+#         except:
+#             break
+
+#     scores = [0] * (N + 1)
+
+#     for j in range(M):
+#         count_0 = 0
+#         count_1 = 0
+
+#         vote_0 = []
+#         vote_1 = []
+
+#         for i in range(1, N + 1):
+#             if i - 1 >= len(S) or j >= len(S[i - 1]):
+#                 continue
+
+#             vote = S[i - 1][j]
+
+#             if vote == "0":
+#                 count_0 += 1
+#                 vote_0.append(i)
+#             else:
+#                 count_1 += 1
+#                 vote_1.append(i)
+
+#         if count_0 == 0 or count_1 == 0:
+#             for i in range(1, N + 1):
+#                 scores[i] += 1
+
+#         elif count_0 < count_1:
+#             for person_id in vote_0:
+#                 scores[person_id] += 1
+
+#         else:
+#             for person_id in vote_1:
+#                 scores[person_id] += 1
+
+#     max_score = 0
+#     if N > 0:
+#         max_score = max(scores[1:])
+
+#     winners = []
+#     for i in range(1, N + 1):
+#         if scores[i] == max_score:
+#             winners.append(str(i))
+
+#     print(" ".join(winners))
+
+
+# if __name__ == "__main__":
+#     solve()
+
+
 import sys
 
 
 def solve():
     try:
-        N_str = sys.stdin.readline().strip()
-        M_str = sys.stdin.readline().strip()
-        
-        if not N_str or not M_str:
-            return
-
-        N = int(N_str)
-        M = int(M_str)
-    except:
+        H, W = map(int, input().split())
+    except EOFError:
         return
 
     S = []
-    for _ in range(N):
+    for _ in range(H):
         try:
-            S.append(sys.stdin.readline().strip())
-        except:
-            break
+            S.append(input())
+        except EOFError:
+            return
 
-    scores = [0] * (N + 1)
+    for i in range(H):
+        for j in range(W):
+            if S[i][j] == "#":
+                black = 0
 
-    for j in range(M):
-        count_0 = 0
-        count_1 = 0
+                directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+                for di, dj in directions:
+                    ni, nj = i + di, j + dj
 
-        vote_0 = []
-        vote_1 = []
+                    if 0 <= ni < H and 0 <= nj < W:
+                        if S[ni][nj] == "#":
+                            black += 1
 
-        for i in range(1, N + 1):
-            if i - 1 >= len(S) or j >= len(S[i - 1]):
-                continue
-                
-            vote = S[i - 1][j]
-
-            if vote == "0":
-                count_0 += 1
-                vote_0.append(i)
-            else:
-                count_1 += 1
-                vote_1.append(i)
-
-        if count_0 == 0 or count_1 == 0:
-            for i in range(1, N + 1):
-                scores[i] += 1
-
-        elif count_0 < count_1:
-            for person_id in vote_0:
-                scores[person_id] += 1
-
-        else:
-            for person_id in vote_1:
-                scores[person_id] += 1
-    
-    max_score = 0
-    if N > 0:
-        max_score = max(scores[1:])
-
-    winners = []
-    for i in range(1, N + 1):
-        if scores[i] == max_score:
-            winners.append(str(i))
-            
-    print(" ".join(winners))
+                if black != 2 and black != 4:
+                    print("No")
+                    return
+        print("Yes")
 
 
 if __name__ == "__main__":
