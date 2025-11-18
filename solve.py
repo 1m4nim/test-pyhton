@@ -467,39 +467,81 @@
 #     solve()
 
 
+# import sys
+
+
+# def solve():
+#     try:
+#         H, W = map(int, input().split())
+#     except EOFError:
+#         return
+
+#     S = []
+#     for _ in range(H):
+#         try:
+#             S.append(input())
+#         except EOFError:
+#             return
+
+#     for i in range(H):
+#         for j in range(W):
+#             if S[i][j] == "#":
+#                 black = 0
+
+#                 directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+#                 for di, dj in directions:
+#                     ni, nj = i + di, j + dj
+
+#                     if 0 <= ni < H and 0 <= nj < W:
+#                         if S[ni][nj] == "#":
+#                             black += 1
+
+#                 if black != 2 and black != 4:
+#                     print("No")
+#                     return
+#         print("Yes")
+
+
+# if __name__ == "__main__":
+#     solve()
+
+# 423
 import sys
 
 
 def solve():
     try:
-        H, W = map(int, input().split())
-    except EOFError:
+        N_str = sys.stdin.readline().strip()
+        if not N_str:
+            return
+        N = int(N_str)
+
+        L_line = sys.stdin.readline().strip().split()
+        if not L_line:
+            return
+        L = list(map(int, L_line))
+
+    except:
         return
 
-    S = []
-    for _ in range(H):
-        try:
-            S.append(input())
-        except EOFError:
-            return
+    R_A = N
+    opened = True
 
-    for i in range(H):
-        for j in range(W):
-            if S[i][j] == "#":
-                black = 0
+    for i in range(N):
+        if opened:
+            if L[i] == 1:
+                opened = False
+                R_A = i
+                break
+    L_8 = 0
 
-                directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-                for di, dj in directions:
-                    ni, nj = i + di, j + dj
+    for i in range(N - 1, -1, -1):
+        if L[i] == 1:
+            L_B = i + 1
+            break
 
-                    if 0 <= ni < H and 0 <= nj < W:
-                        if S[ni][nj] == "#":
-                            black += 1
-
-                if black != 2 and black != 4:
-                    print("No")
-                    return
-        print("Yes")
+    result = L_B - R_A - 1
+    print(max(0, result))
 
 
 if __name__ == "__main__":
